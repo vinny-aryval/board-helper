@@ -94,15 +94,14 @@ export interface CreateSubtaskResponse {
   self: string;
 }
 
-// OpenAI API response structure
+// AI-generated description response
 export interface AIGeneratedDescription {
   content: string;
-  tokenUsage?: number;
 }
 
 // Configuration for environment variables
 export interface Config {
-  openaiApiKey: string;
+  geminiApiKey: string;
   jiraBaseUrl: string;
   jiraEmail: string;
   jiraApiToken: string;

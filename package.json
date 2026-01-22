@@ -1,29 +1,28 @@
 {
   "name": "jira-subtask-automation",
   "version": "1.0.0",
-  "description": "Serverless Node.js service for automated Jira subtask generation using OpenAI",
-  "main": "api/jira-webhook.ts",
+  "description": "Cloudflare Worker for automated Jira subtask generation using Google Gemini",
+  "main": "src/index.ts",
   "scripts": {
-    "dev": "vercel dev",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
     "build": "tsc",
     "type-check": "tsc --noEmit"
   },
   "keywords": [
     "jira",
-    "openai",
-    "vercel",
+    "gemini",
+    "cloudflare",
+    "workers",
     "serverless",
     "automation"
   ],
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "openai": "^4.20.0"
-  },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240208.0",
     "@types/node": "^20.10.0",
-    "@vercel/node": "^3.0.0",
     "typescript": "^5.3.0",
-    "vercel": "^32.0.0"
+    "wrangler": "^4.60.0"
   }
 }

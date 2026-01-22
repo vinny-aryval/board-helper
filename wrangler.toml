@@ -1,0 +1,17 @@
+name = "board-helper"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# Uncomment to use Node.js compatibility mode
+# node_compat = true
+
+[vars]
+# Non-sensitive defaults (override with secrets for production values)
+JIRA_READY_STATUS = "Ready to Start"
+
+# Run `wrangler secret put <SECRET_NAME>` to add these:
+# - OPENAI_API_KEY
+# - JIRA_BASE_URL
+# - JIRA_EMAIL
+# - JIRA_API_TOKEN
+# - WEBHOOK_SECRET
