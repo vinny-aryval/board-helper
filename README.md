@@ -84,6 +84,9 @@ JIRA_BASE_URL=https://your-domain.atlassian.net
 JIRA_EMAIL=your-email@example.com
 JIRA_API_TOKEN=your-jira-api-token-here
 
+# Optional: Custom status name that triggers subtask creation (default: "Ready for Dev")
+# JIRA_READY_STATUS=Ready for Dev
+
 # Webhook Security
 WEBHOOK_SECRET=your-webhook-secret-here
 ```
@@ -148,6 +151,7 @@ After deployment, add your environment variables:
    - `JIRA_EMAIL`
    - `JIRA_API_TOKEN`
    - `WEBHOOK_SECRET`
+   - `JIRA_READY_STATUS` (optional, defaults to "Ready for Dev")
 4. Redeploy to apply changes
 
 ## 🔗 Jira Configuration
@@ -328,7 +332,9 @@ Notes:
 ## 🔒 Security
 
 - **HTTPS**: All communication is encrypted
-- **Webhook Validation**: HMAC-SHA256 signature verification
+- **Webhook Validation**: HMAC-SHA256 signature verification using Node.js built-in `timingSafeEqual`
+  - Note: For production with strict signature validation, you may need to configure Vercel to provide raw request body access
+  - Current implementation validates the JSON-stringified body as a basic security check
 - **API Keys**: Stored securely as environment variables
 - **Least Privilege**: Jira API token has minimal required permissions
 

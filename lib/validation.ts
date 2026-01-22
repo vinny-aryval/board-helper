@@ -2,7 +2,7 @@
  * Webhook signature validation using HMAC-SHA256
  */
 
-import { createHmac } from 'crypto';
+import { createHmac, timingSafeEqual } from 'crypto';
 
 /**
  * Validates webhook signature to ensure request authenticity
@@ -27,29 +27,20 @@ export function validateWebhookSignature(
     hmac.update(payload);
     const expectedSignature = hmac.digest('hex');
 
-    // Compare signatures using timing-safe comparison
-    return timingSafeEqual(signature, expectedSignature);
+    // Compare signatures using Node.js built-in timing-safe comparison
+    // Convert strings to buffers for secure comparison
+    const signatureBuffer = Buffer.from(signature);
+    const expectedBuffer = Buffer.from(expectedSignature);
+
+    // Ensure same length before comparison
+    if (signatureBuffer.length !== expectedBuffer.length) {
+      return false;
+    }
+
+    return timingSafeEqual(signatureBuffer, expectedBuffer);
   } catch (error) {
     console.error('Error validating webhook signature:', error);
     return false;
   }
 }
 
-/**
- * Timing-safe string comparison to prevent timing attacks
- * @param a - First string
- * @param b - Second string
- * @returns true if strings match, false otherwise
- */
-function timingSafeEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) {
-    return false;
-  }
-
-  let result = 0;
-  for (let i = 0; i < a.length; i++) {
-    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  }
-
-  return result === 0;
-}
